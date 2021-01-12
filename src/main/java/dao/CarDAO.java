@@ -2,23 +2,21 @@ package dao;
 
 import model.Car;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CarDAO implements ICarDAO {
-    private String jdbcURL = "jdbc:mysql://localhost:3306/demo?useSSL=false";
+    private String jdbcURL = "jdbc:mysql://localhost:3306/carstore?useSSL=false";
     private String jdbcUsername = "root";
     private String jdbcPassword = "1122";
 
-    private static final String INSERT_CARS_SQL = "INSERT INTO cars" + "  (name,vehicle, bodyStyle, engine, price) VALUES " +
+    private static final String INSERT_CARS_SQL = "INSERT INTO car" + "  (name,vehicle, bodyStyle, engine, price) VALUES " +
             " (?, ?, ?, ?, ?);";
 
-    private static final String SELECT_CAR_BY_ID = "select id,name,bodyStyle,engine,price from cars where id =?";
-    private static final String SELECT_ALL_CARS = "select * from cars";
-    private static final String DELETE_CARS_SQL = "delete from cars where id = ?;";
+    private static final String SELECT_CAR_BY_ID = "select id,name,bodyStyle,engine,price from car where id =?";
+    private static final String SELECT_ALL_CARS = "select * from car";
+    private static final String DELETE_CARS_SQL = "delete from car where id = ?;";
     private static final String UPDATE_CARS_SQL = "update cars set name = ?,email= ?, country =? where id = ?;";
 
     protected Connection getConnection() {
@@ -58,7 +56,26 @@ public class CarDAO implements ICarDAO {
 
     @Override
     public List<Car> selectAllCars() {
-        return null;
+        List<Car> cars = new ArrayList<>();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_CARS);) {
+            System.out.println(preparedStatement);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                String name = rs.getString("name");
+                String vehicle = rs.getString("vehicle");
+                String bodyStyle = rs.getString("bodyStyle");
+                String engine = rs.getString("engine");
+                String price = rs.getString("price");
+                String maxPower = rs.getString("maxPower");
+                String image =  rs.getString("image");
+                cars.add(new Car(name, vehicle, bodyStyle,engine,maxPower,price,image));
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return cars;
     }
 
     @Override

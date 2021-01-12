@@ -117,7 +117,6 @@
     <img src="logo.png" height="15%" width="10%"  alt="">&nbspCARSTORE.com
   </a>
   <a href="admin.jsp" class="btn btn-danger btn-lg active" role="button" data-toggle="popover" title="Login/Signup" data-content="Login/Signup" aria-pressed="true">Admin</a>&nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="user.jsp" class="btn btn-danger btn-lg active" role="button" data-toggle="popover" title="Login/Signup" data-content="Login/Signup" aria-pressed="true">Account</a>
 
 </nav>
 
@@ -129,7 +128,7 @@
     </form>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item active ">
-        <a class="nav-link " href="index.html"><b>Home</b>
+        <a class="nav-link " href=""><b>Home</b>
           <span class="sr-only">(current)</span></a>
       </li>
 
@@ -137,50 +136,6 @@
     </ul>
   </div>
 </nav>
-
-<marquee bgcolor="white" behavior="alternate" scrollamount="8"><h5><b>Find  the latest upcoming cars</b></h5></marquee>
-<!-- Container (Indicator) -->
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-  <ol class="carousel-indicators">
-    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-    <li data-target="#myCarousel" data-slide-to="1"></li>
-    <li data-target="#myCarousel" data-slide-to="2"></li>
-  </ol>
-  <div class="carousel-inner">
-    <div  class="carousel-item active">
-      <a href="fviewmodels.jsp">
-        <img src="h1.jpg" alt="Couldn't load image" >
-      </a>
-      <div class="carousel-caption">
-        <h3>Volvo XC40</h3>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <a href="fviewmodels.jsp">
-        <img src="h2.jpg" alt="Couldn't load image" >
-      </a>
-      <div class="carousel-caption">
-        <h3>Volkswagen Taigun</h3>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <a href="fviewmodels.jsp">
-        <img src="h3.jpg" alt="Couldn't load image">
-      </a>
-      <div class="carousel-caption">
-        <h3>Jeep Renegade</h3>
-      </div>
-    </div>
-  </div>
-  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
 
 
 
@@ -190,46 +145,20 @@
   <br>
   <div class="row">
     <div class="col-sm-4">
-      <a href="cars.jsp?val=Toyota">
+      <a href="cars?action=cars">
         <img src="t.jpg" class="img person" alt="Couldn't load image" width="255" height="255">
       </a>
-      <p class="text-center"><strong>Toyota</strong></p><br>
+      <p class="text-center"><strong>Show all car</strong></p><br>
     </div>
 
     <div class="col-sm-4">
-      <a href="cars.jsp?val=Ford" >
+      <a href="cars?action=create" >
         <img src="f.jpg" class="img person" alt="Couldn't load image" width="255" height="255">
       </a>
-      <p class="text-center"><strong>Ford</strong></p><br>
+      <p class="text-center"><strong>Creat new car</strong></p><br>
     </div>
 
-    <div class="col-sm-4">
-      <a href="cars.jsp?val=Honda" >
-        <img src="h.jpg" class="img person" alt="Couldn't load image" width="255" height="255">
-      </a>
-      <p class="text-center"><strong>Honda</strong></p><br>
-    </div>
 
-    <div class="col-sm-4">
-      <a href="cars.jsp?val=Maruti Suzuki">
-        <img src="ms.jpg" class="img person" alt="Couldn't load image" width="255" height="255">
-      </a>
-      <p class="text-center"><strong>Maruti Suzuki</strong></p><br>
-    </div>
-
-    <div class="col-sm-4">
-      <a href="cars.jsp?val=Nissan">
-        <img src="n.jpg" class="img person" alt="Couldn't load image" width="255" height="255">
-      </a>
-      <p class="text-center"><strong>Nissan</strong></p><br>
-    </div>
-
-    <div class="col-sm-4">
-      <a href="cars.jsp?val=Volkswagen">
-        <img src="w.jpg" class="img person" alt="Couldn't load image" width="255" height="255">
-      </a>
-      <p class="text-center"><strong>Volkswagen</strong></p><br>
-    </div>
 
   </div>
 </div>

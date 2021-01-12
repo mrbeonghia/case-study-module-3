@@ -74,13 +74,13 @@ public class CarServlet extends HttpServlet {
             throws SQLException, IOException, ServletException {
         List<Car> listCar = carDAO.selectAllCars();
         request.setAttribute("listCar", listCar);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("car/list.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("listCar.jsp");
         dispatcher.forward(request, response);
     }
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("car/create.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("create.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -88,7 +88,7 @@ public class CarServlet extends HttpServlet {
             throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Car existingCar = carDAO.getCarById(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("car/edit.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("edit.jsp");
         request.setAttribute("user", existingCar);
         dispatcher.forward(request, response);
     }
@@ -104,7 +104,7 @@ public class CarServlet extends HttpServlet {
         Car newCar = new Car(name, vehicle, bodyStyle, engine, maxPower, price, image);
         //userDAO.insertUser(newUser);
         carDAO.insertCar(newCar);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("car/create.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("create.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -120,7 +120,7 @@ public class CarServlet extends HttpServlet {
         String image =  request.getParameter("image");
         Car updateCar = new Car(id,name, vehicle, bodyStyle, engine,maxPower, price, image);
         carDAO.updateCar(updateCar);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("car/edit.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("edit.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -131,7 +131,7 @@ public class CarServlet extends HttpServlet {
 
         List<Car> listCar = carDAO.selectAllCars();
         request.setAttribute("listCar", listCar);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("car/list.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("list.jsp");
         dispatcher.forward(request, response);
     }
 }
