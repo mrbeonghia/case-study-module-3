@@ -2,6 +2,7 @@ package controller;
 
 import dao.CarDAO;
 import model.Car;
+import model.Customer;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,6 +26,8 @@ public class CarServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServerException, IOException, ServletException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
         String action = request.getParameter("action");
         if (action == null) {
             action = "";
@@ -45,6 +48,8 @@ public class CarServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
         String action = request.getParameter("action");
         if (action == null) {
             action = "";
@@ -60,6 +65,9 @@ public class CarServlet extends HttpServlet {
                     break;
                 case "delete":
                     deleteCar(request, response);
+                    break;
+                case "view":
+                    viewCar(request, response);
                     break;
                 default:
                     listCar(request, response);
@@ -80,7 +88,7 @@ public class CarServlet extends HttpServlet {
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("create.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("createCar.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -89,7 +97,7 @@ public class CarServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         Car existingCar = carDAO.getCarById(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("edit.jsp");
-        request.setAttribute("user", existingCar);
+        request.setAttribute("car", existingCar);
         dispatcher.forward(request, response);
     }
     private void insertCar(HttpServletRequest request, HttpServletResponse response)
@@ -102,9 +110,8 @@ public class CarServlet extends HttpServlet {
         String maxPower = request.getParameter("maxPower");
         String image =  request.getParameter("image");
         Car newCar = new Car(name, vehicle, bodyStyle, engine, maxPower, price, image);
-        //userDAO.insertUser(newUser);
         carDAO.insertCar(newCar);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("create.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("createCar.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -120,7 +127,7 @@ public class CarServlet extends HttpServlet {
         String image =  request.getParameter("image");
         Car updateCar = new Car(id,name, vehicle, bodyStyle, engine,maxPower, price, image);
         carDAO.updateCar(updateCar);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("edit.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("editCar.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -131,7 +138,27 @@ public class CarServlet extends HttpServlet {
 
         List<Car> listCar = carDAO.selectAllCars();
         request.setAttribute("listCar", listCar);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("list.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("listCar.jsp");
         dispatcher.forward(request, response);
     }
+
+    private void viewCar(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Car car = this.carDAO.getCarById(id);
+        RequestDispatcher dispatcher;
+        if(car == null){
+            dispatcher = request.getRequestDispatcher("error-404.jsp");
+        } else {
+            request.setAttribute("car", car);
+            dispatcher = request.getRequestDispatcher("view.jsp");
+        }
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

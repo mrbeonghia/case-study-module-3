@@ -11,13 +11,14 @@ public class CarDAO implements ICarDAO {
     private String jdbcUsername = "root";
     private String jdbcPassword = "1122";
 
-    private static final String INSERT_CARS_SQL = "INSERT INTO car" + "  (name,vehicle, bodyStyle, engine, price) VALUES " +
-            " (?, ?, ?, ?, ?);";
+    private static final String INSERT_CARS_SQL = "INSERT INTO car" + "  (name, vehicle, bodyStyle, engine, maxPower, price, image) VALUES " +
+            " (?, ?, ?, ?, ?, ?, ?);";
 
-    private static final String SELECT_CAR_BY_ID = "select id,name,bodyStyle,engine,price from car where id =?";
+    private static final String SELECT_CAR_BY_ID = "select * from car where id =?";
     private static final String SELECT_ALL_CARS = "select * from car";
     private static final String DELETE_CARS_SQL = "delete from car where id = ?;";
     private static final String UPDATE_CARS_SQL = "update cars set name = ?,email= ?, country =? where id = ?;";
+
 
     protected Connection getConnection() {
         Connection connection = null;
@@ -42,6 +43,7 @@ public class CarDAO implements ICarDAO {
             preparedStatement.setString(4, car.getEngine());
             preparedStatement.setString(5, car.getMaxPower());
             preparedStatement.setString(6, car.getPrice());
+            preparedStatement.setString(7, car.getImage());
             System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -63,6 +65,7 @@ public class CarDAO implements ICarDAO {
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
+                int id = rs.getInt("id");
                 String name = rs.getString("name");
                 String vehicle = rs.getString("vehicle");
                 String bodyStyle = rs.getString("bodyStyle");
@@ -70,7 +73,7 @@ public class CarDAO implements ICarDAO {
                 String price = rs.getString("price");
                 String maxPower = rs.getString("maxPower");
                 String image =  rs.getString("image");
-                cars.add(new Car(name, vehicle, bodyStyle,engine,maxPower,price,image));
+                cars.add(new Car(id, name, vehicle, bodyStyle,engine,maxPower,price,image));
             }
         } catch (SQLException e) {
             printSQLException(e);
@@ -80,7 +83,12 @@ public class CarDAO implements ICarDAO {
 
     @Override
     public boolean deleteCar(int id) throws SQLException {
-        return false;
+        boolean rowDeleted;
+        try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(DELETE_CARS_SQL);) {
+            statement.setInt(1, id);
+            rowDeleted = statement.executeUpdate() > 0;
+        }
+        return rowDeleted;
     }
 
     @Override
@@ -90,7 +98,30 @@ public class CarDAO implements ICarDAO {
 
     @Override
     public Car getCarById(int id) {
-        return null;
+        Car car = null;
+        // Step 1: Establishing a Connection
+        try (Connection connection = getConnection();
+             // Step 2:Create a statement using connection object
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_CAR_BY_ID);) {
+            preparedStatement.setInt(1, id);
+            // Step 3: Execute the query or update query
+            ResultSet rs = preparedStatement.executeQuery();
+            // Step 4: Process the ResultSet object.
+            while (rs.next()) {
+                String name = rs.getString("name");
+                String vehicle = rs.getString("vehicle");
+                String bodyStyle = rs.getString("bodyStyle");
+                String engine = rs.getString("engine");
+                String price = rs.getString("price");
+                String maxPower = rs.getString("maxPower");
+                String image =  rs.getString("image");
+                car = new Car(id, name, vehicle, bodyStyle,engine,maxPower,price,image);
+
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return car;
     }
 
     private void printSQLException(SQLException ex) {

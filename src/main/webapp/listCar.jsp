@@ -142,7 +142,7 @@ if(request.getParameter("m2")!=null){%>
         </form>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active ">
-                <a class="nav-link " href="index.html"><b>Home</b>
+                <a class="nav-link " href="index.jsp"><b>Home</b>
                     <span class="sr-only">(current)</span></a>
             </li>
 
@@ -159,17 +159,11 @@ if(request.getParameter("m2")!=null){%>
     <table border="1" cellpadding="5">
         <c:forEach var="car" items="${requestScope['listCar']}">
             <tr>
-                <td>${car.getName()}</td>
-                <td>${car.getVehicle()}</td>
-                <td>${car.getBodyStyle()}</td>
-                <td>${car.getEngine()}</td>
-                <td>${car.getMaxPower()}</td>
+                <td><a href="/cars?action=view&id=${car.getId()}"><img src="${car.getImage()}" height="200px" /></a></td>
+                <td><a href="/cars?action=view&id=${car.getId()}">${car.getName()}</a></td>
                 <td>${car.getPrice()}</td>
-                <td><img src="${car.getImage()}" /></td>
-                <td>
-                    <a href="/cars?action=edit&id=${car.id}">Edit</a>
-                    <a href="/cars?action=delete&id=${car.id}">Delete</a>
-                </td>
+                <td><a href="/cars?action=edit&id=${car.getId()}">edit</a></td>
+                <td><a href="/cars?action=delete&id=${car.getId()}">delete</a></td>
             </tr>
         </c:forEach>
     </table>
