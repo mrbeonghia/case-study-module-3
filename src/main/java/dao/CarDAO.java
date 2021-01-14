@@ -17,7 +17,7 @@ public class CarDAO implements ICarDAO {
     private static final String SELECT_CAR_BY_ID = "select * from car where id =?";
     private static final String SELECT_ALL_CARS = "select * from car";
     private static final String DELETE_CARS_SQL = "delete from car where id = ?;";
-    private static final String UPDATE_CARS_SQL = "update cars set name = ?,email= ?, country =? where id = ?;";
+    private static final String UPDATE_CARS_SQL = "update car set name = ?,vehicle = ?, bodyStyle = ?, engine = ?, maxPower = ?, price = ?, image = ? where id = ?;";
 
 
     protected Connection getConnection() {
@@ -93,7 +93,19 @@ public class CarDAO implements ICarDAO {
 
     @Override
     public boolean updateCar(Car car) throws SQLException {
-        return false;
+        boolean rowUpdated;
+        try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE_CARS_SQL);) {
+            statement.setString(1, car.getName());
+            statement.setString(2, car.getVehicle());
+            statement.setString(3, car.getBodyStyle());
+            statement.setString(4, car.getEngine());
+            statement.setString(5, car.getMaxPower());
+            statement.setString(6, car.getPrice());
+            statement.setString(7, car.getImage());
+            statement.setInt(8,car.getId());
+            rowUpdated = statement.executeUpdate() > 0;
+        }
+        return rowUpdated;
     }
 
     @Override

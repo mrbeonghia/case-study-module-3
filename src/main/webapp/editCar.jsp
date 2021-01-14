@@ -8,56 +8,84 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Edit customer</title>
+    <title>Sủa thông tin xe</title>
 </head>
 <body>
-<h1>Edit customer</h1>
 <p>
-    <c:if test='${requestScope["message"] != null}'>
-        <span class="message">${requestScope["message"]}</span>
-    </c:if>
+    <a href="/cars">Quay lại</a>
 </p>
-<p>
-    <a href="/cars">Back to customer list</a>
-</p>
-<form method="post">
-    <fieldset>
-        <legend>Thông tin xe</legend>
-        <table>
+<div align="center">
+    <form method="post">
+        <table border="1" cellpadding="5">
+            <caption>
+                <h2>
+                    Sủa thông tin xe
+                </h2>
+            </caption>
+            <c:if test="${car != null}">
+                <input type="hidden" name="id" value="<c:out value='${car.id}' />"/>
+            </c:if>
             <tr>
-                <td>Tên xe: </td>
-                <td><input type="text" name="name" id="name" value="${requestScope["car"].getName()}"></td>
+                <th>Tên xe:</th>
+                <td>
+                    <input type="text" name="name" size="45"
+                           value='${car.name}'
+                    />
+                </td>
             </tr>
             <tr>
-                <td>Dòng xe: </td>
-                <td><input type="text" name="vehicle" id="vehicle" value="${requestScope["car"].getVehicle()}"></td>
+                <th>Dòng xe:</th>
+                <td>
+                    <input type="text" name="vehicle" size="45"
+                           value='${car.vehicle}'
+                    />
+                </td>
             </tr>
             <tr>
-                <td>Kiểu dáng: </td>
-                <td><input type="text" name="bodyStyle" id="bodyStyle" value="${requestScope["car"].getbodyStyle()}"></td>
+                <th>Kiểu dáng:</th>
+                <td>
+                    <input type="text" name="bodyStyle" size="45"
+                           value='${car.bodyStyle}'
+                    />
+                </td>
             </tr>
             <tr>
-                <td>Động cơ: </td>
-                <td><input type="text" name="engine" id="engine" value="${requestScope["car"].getEngine()}"></td>
+                <th>Động cơ:</th>
+                <td>
+                    <input type="text" name="engine" size="45"
+                           value='${car.engine}'
+                    />
+                </td>
+            </tr><tr>
+                <th>Công suất cực đại:</th>
+                <td>
+                    <input type="text" name="maxPower" size="45"
+                           value='${car.maxPower}'
+                    />
+                </td>
+            </tr><tr>
+                <th>Giá:</th>
+                <td>
+                    <input type="text" name="price" size="45"
+                           value='${car.price}'
+                    />
+                </td>
+            </tr><tr>
+                <th>Đường dẫn ảnh:</th>
+                <td>
+                    <input type="text" name="image" size="45"
+                           value="${car.image}"
+                    />
+                </td>
             </tr>
+
             <tr>
-                <td>Công suất cực đại: </td>
-                <td><input type="text" name="maxPower" id="maxPower" value="${requestScope["car"].getMaxPower()}"></td>
-            </tr>
-            <tr>
-                <td>Giá: </td>
-                <td><input type="text" name="price" id="price" value="${requestScope["car"].getprice()}"></td>
-            </tr>
-            <tr>
-                <td>Ảnh: </td>
-                <td><input type="text" name="image" id="image" value="${requestScope["car"].getImage()}"></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="submit" value="Update customer"></td>
+                <td colspan="2" align="center">
+                    <input type="submit" value="Save"/>
+                </td>
             </tr>
         </table>
-    </fieldset>
-</form>
+    </form>
+</div>
 </body>
 </html>

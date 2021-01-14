@@ -11,20 +11,19 @@
     <title>View car</title>
 </head>
 <body>
-<h1 align="center">Car details</h1>
+<h1 align="center">Thông tin xe</h1>
 <p>
-    <a href="/cars">Back to car list</a>
+    <a href="/cars">Quay lại</a>
 </p>
-<table align="center">
-    <tr>
-        <td><img src="${car.getImage()}" /></td>
-        <td>${car.getName()}</td>
-        <td>${car.getVehicle()}</td>
-        <td>${car.getBodyStyle()}</td>
-        <td>${car.getEngine()}</td>
-        <td>${car.getMaxPower()}</td>
-        <td style="color: red">${car.getPrice()}</td>
-    </tr>
-</table>
+
+<div align="center">
+    <div><img src="${car.getImage()}" height="400px"/></div>
+    <div>Tên xe: ${car.getName()}</div>
+    <div>Dòng xe: ${car.getVehicle()}</div>
+    <div>Kiểu dáng: ${car.getBodyStyle()}</div>
+    <div>Động cơ: ${car.getEngine()}</div>
+    <div>Công suất cực đại: ${car.getMaxPower()}</div>
+    <div style="color: red">Giá: ${car.getPrice()}</div>
+</div>
 </body>
 </html>

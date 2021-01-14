@@ -86,6 +86,7 @@ public class CarServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("createCar.jsp");
@@ -96,7 +97,7 @@ public class CarServlet extends HttpServlet {
             throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Car existingCar = carDAO.getCarById(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("edit.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("editCar.jsp");
         request.setAttribute("car", existingCar);
         dispatcher.forward(request, response);
     }
@@ -112,6 +113,7 @@ public class CarServlet extends HttpServlet {
         Car newCar = new Car(name, vehicle, bodyStyle, engine, maxPower, price, image);
         carDAO.insertCar(newCar);
         RequestDispatcher dispatcher = request.getRequestDispatcher("createCar.jsp");
+        request.setAttribute("message", "Success");
         dispatcher.forward(request, response);
     }
 
@@ -125,8 +127,8 @@ public class CarServlet extends HttpServlet {
         String price = request.getParameter("price");
         String maxPower = request.getParameter("maxPower");
         String image =  request.getParameter("image");
-        Car updateCar = new Car(id,name, vehicle, bodyStyle, engine,maxPower, price, image);
-        carDAO.updateCar(updateCar);
+        Car editCar = new Car(id,name, vehicle, bodyStyle, engine,maxPower, price, image);
+        carDAO.updateCar(editCar);
         RequestDispatcher dispatcher = request.getRequestDispatcher("editCar.jsp");
         dispatcher.forward(request, response);
     }
@@ -135,7 +137,6 @@ public class CarServlet extends HttpServlet {
             throws SQLException, IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
         carDAO.deleteCar(id);
-
         List<Car> listCar = carDAO.selectAllCars();
         request.setAttribute("listCar", listCar);
         RequestDispatcher dispatcher = request.getRequestDispatcher("listCar.jsp");
