@@ -49,7 +49,7 @@
     <h2 style="color:black">Tạo mẫu xe mới</h2>
 
     <table>
-        <form  method="post">
+        <form  method="post" action="/cars?action=create">
             <tr>
                 <th>Tên xe</th>      <th> <input type="text"  name="name" required="" autocomplete="off"></th>
             </tr>

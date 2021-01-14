@@ -1,7 +1,7 @@
 <%--
   Created by IntelliJ IDEA.
   User: Nghia B
-  Date: 01/14/21
+  Date: 01/13/21
   Time: 10:46
   To change this template use File | Settings | File Templates.
 --%>
@@ -52,7 +52,7 @@
     <br><Br>
     <h3 style="color:black">Đăng ký thông tin để được tư vấn và nhận ưu đãi </h3>
     <table>
-        <form  method="post">
+        <form  method="post" action="/customers?action=create">
             <tr>
                 <th>Họ tên</th>      <th> <input type="text"  name="name" required="" autocomplete="off"></th>
             </tr>

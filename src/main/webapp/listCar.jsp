@@ -22,6 +22,7 @@
     <c:if test="${sessionScope['logged']==true }">
         <a href="logout.jsp" class="btn btn-danger btn-lg active" role="button" data-toggle="popover" title="Login/Signup" data-content="Login/Signup" aria-pressed="true">Log out</a>&nbsp;&nbsp;&nbsp;&nbsp;
         <a href="createCar.jsp" class="btn btn-danger btn-lg active" role="button" data-toggle="popover" title="Login/Signup" data-content="Login/Signup" aria-pressed="true">Thêm xe mới</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="customers?action=customers" class="btn btn-danger btn-lg active" role="button" data-toggle="popover" title="Login/Signup" data-content="Login/Signup" aria-pressed="true">Xem khach hang</a>&nbsp;&nbsp;&nbsp;&nbsp;
     </c:if>
 </nav>
 
