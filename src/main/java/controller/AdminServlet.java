@@ -18,31 +18,47 @@ import java.util.List;
 public class AdminServlet extends HttpServlet {
     private CarDAO carDAO;
 
-    public void init(){
+    public void init() {
         carDAO = new CarDAO();
-    }
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request,response);
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");
         String password = request.getParameter("password");
         HttpSession session = request.getSession();
-        if (name == null || password == null ){
+        if (name == null || password == null) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-            dispatcher.forward(request,response);
-        }else if (name.equals("admin") && password.equals("admin")){
-            session.setAttribute("logged",true);
+            dispatcher.forward(request, response);
+        } else if (name.equals("admin") && password.equals("admin")) {
+            session.setAttribute("logged", true);
             response.sendRedirect("cars?action=cars");
-        }else{
+        } else {
             request.setAttribute("message", "wrong input");
             RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-            dispatcher.forward(request,response);
+            dispatcher.forward(request, response);
         }
+    }
 
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
+        String action = request.getParameter("action");
+        if (action == null) {
+            action = "";
+        }
+        switch (action) {
+            case "logout":
+                logOut(request, response);
+                break;
+            default:
+                doPost(request, response);
+        }
+    }
+
+    private void logOut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+        session.invalidate();
+        response.sendRedirect("/login");
     }
 
 

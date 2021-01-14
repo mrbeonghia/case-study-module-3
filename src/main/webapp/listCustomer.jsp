@@ -21,13 +21,13 @@
             <th>Phone</th>
             <th>Email</th>
         </tr>
-        <c:forEach var="customer" items="${sessionScope['listCustomer']}">
+        <c:forEach var="customer" items="${requestScope['listCustomer']}">
             <tr>
                 <td><c:out value="${customer.getName()}"/></td>
                 <td><c:out value="${customer.getPhone()}"/></td>
                 <td><c:out value="${customer.getEmail()}"/></td>
                 <td>
-                    <a href="/customers?action=delete&id=${user.id}">Delete</a>
+                    <a href="/customers?action=delete&id=${customer.id}">Delete</a>
                 </td>
             </tr>
         </c:forEach>

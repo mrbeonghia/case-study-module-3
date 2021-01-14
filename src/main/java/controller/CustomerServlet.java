@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.rmi.ServerException;
 import java.sql.SQLException;
@@ -71,8 +70,7 @@ public class CustomerServlet extends HttpServlet {
     private void listCustomer(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
         List<Customer> listCustomer = customerDAO.selectAllCustomers();
-        HttpSession session = request.getSession();
-        session.setAttribute("listCustomer", listCustomer);
+        request.setAttribute("listCustomer", listCustomer);
         RequestDispatcher dispatcher = request.getRequestDispatcher("listCustomer.jsp");
         dispatcher.forward(request, response);
     }
