@@ -23,10 +23,6 @@
 
 <nav class="navbar navbar-expand-lg navbar-light sticky-top "  style="background-color:#e82929;" >
   <div class="collapse navbar-collapse " id="navbarSupportedContent">
-    <form class="form-inline my-1 my-1" action="searchCar.jsp">
-      <input name = "key" class="form-control  mr-1 " type="search" placeholder="Search" aria-label="Search">
-      </br><a href="searcCar.jsp"><img src="search.svg"></a>
-    </form>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item active ">
         <a class="nav-link " href=""><b>Home</b>

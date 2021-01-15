@@ -18,7 +18,7 @@ public class CarDAO implements ICarDAO {
     private static final String SELECT_ALL_CARS = "select * from car";
     private static final String DELETE_CARS_SQL = "delete from car where id = ?;";
     private static final String UPDATE_CARS_SQL = "update car set name = ?,vehicle = ?, bodyStyle = ?, engine = ?, maxPower = ?, price = ?, image = ? where id = ?;";
-
+    private static final String FIND_CARS_BY_NAME = "select * from car where name like ?";
 
     protected Connection getConnection() {
         Connection connection = null;
@@ -134,6 +134,35 @@ public class CarDAO implements ICarDAO {
             printSQLException(e);
         }
         return car;
+    }
+
+    public List<Car> getCarByName(String carName) {
+        List<Car> cars = null;
+
+        try (Connection connection = getConnection();
+
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_CARS_BY_NAME);) {
+            cars = new ArrayList<>();
+            preparedStatement.setString(1, "%" + carName + "%");
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String vehicle = rs.getString("vehicle");
+                String bodyStyle = rs.getString("bodyStyle");
+                String engine = rs.getString("engine");
+                String price = rs.getString("price");
+                String maxPower = rs.getString("maxPower");
+                String image =  rs.getString("image");
+                Car car = new Car(id, name, vehicle, bodyStyle,engine,maxPower,price,image);
+                cars.add(car);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cars;
     }
 
     private void printSQLException(SQLException ex) {

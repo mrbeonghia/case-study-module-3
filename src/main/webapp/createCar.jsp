@@ -45,9 +45,16 @@
         }
 
     </style>
+    <p>
+        <a href="/cars">Quay lại</a>
+    </p>
     <br><Br>
     <h2 style="color:black">Tạo mẫu xe mới</h2>
-
+    <p>
+        <c:if test='${requestScope["message"] != null}'>
+            <span class="message">${requestScope["message"]}</span>
+        </c:if>
+    </p>
     <table>
         <form  method="post" action="/cars?action=create">
             <tr>

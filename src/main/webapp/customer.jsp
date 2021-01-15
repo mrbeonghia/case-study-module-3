@@ -50,7 +50,15 @@
 
 
     <br><Br>
+    <p>
+        <a href="/">Quay lại</a>
+    </p>
     <h3 style="color:black">Đăng ký thông tin để được tư vấn và nhận ưu đãi </h3>
+    <p>
+        <c:if test='${requestScope["message"] != null}'>
+            <span class="message">${requestScope["message"]}</span>
+        </c:if>
+    </p>
     <table>
         <form  method="post" action="/customers?action=create">
             <tr>

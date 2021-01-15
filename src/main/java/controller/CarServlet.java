@@ -40,6 +40,9 @@ public class CarServlet extends HttpServlet {
                 case "edit":
                     updateCar(request, response);
                     break;
+                case "search":
+                    searchCar(request,response);
+                    break;
             }
         } catch (SQLException ex) {
             throw new ServletException(ex);
@@ -69,6 +72,9 @@ public class CarServlet extends HttpServlet {
                 case "view":
                     viewCar(request, response);
                     break;
+                case "search":
+                    searchCar(request,response);
+                    break;
                 default:
                     listCar(request, response);
                     break;
@@ -77,6 +83,7 @@ public class CarServlet extends HttpServlet {
             throw new ServletException(ex);
         }
     }
+
 
     private void listCar(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
@@ -130,6 +137,7 @@ public class CarServlet extends HttpServlet {
         Car editCar = new Car(id,name, vehicle, bodyStyle, engine,maxPower, price, image);
         carDAO.updateCar(editCar);
         RequestDispatcher dispatcher = request.getRequestDispatcher("editCar.jsp");
+        request.setAttribute("message", "Success");
         dispatcher.forward(request, response);
     }
 
@@ -160,6 +168,14 @@ public class CarServlet extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void searchCar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String name = request.getParameter("name");
+        List<Car> listCar = carDAO.getCarByName(name);
+        request.setAttribute("_searchCar", listCar);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("searchCar.jsp");
+        requestDispatcher.forward(request, response);
     }
 
 }

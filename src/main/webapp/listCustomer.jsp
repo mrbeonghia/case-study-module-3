@@ -13,6 +13,9 @@
     <title>Danh sách khách hàng</title>
 </head>
 <body>
+<p>
+    <a href="/cars">Quay lại</a>
+</p>
 <div align="center">
     <table border="1" cellpadding="5">
         <caption><h2>List of Users</h2></caption>
