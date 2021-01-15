@@ -14,7 +14,7 @@
 </head>
 <body>
 <p>
-    <a href="/cars">Quay lại</a>
+    <a href="/cars?action=cars">Quay lại</a>
 </p>
 <div align="center">
     <table border="1" cellpadding="5">

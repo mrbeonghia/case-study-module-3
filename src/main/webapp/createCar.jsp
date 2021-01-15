@@ -46,7 +46,7 @@
 
     </style>
     <p>
-        <a href="/cars">Quay lại</a>
+        <a href="/cars?action=cars">Quay lại</a>
     </p>
     <br><Br>
     <h2 style="color:black">Tạo mẫu xe mới</h2>

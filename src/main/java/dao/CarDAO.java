@@ -19,6 +19,8 @@ public class CarDAO implements ICarDAO {
     private static final String DELETE_CARS_SQL = "delete from car where id = ?;";
     private static final String UPDATE_CARS_SQL = "update car set name = ?,vehicle = ?, bodyStyle = ?, engine = ?, maxPower = ?, price = ?, image = ? where id = ?;";
     private static final String FIND_CARS_BY_NAME = "select * from car where name like ?";
+    private static final String SORT_PRICE_LOW_HIGH = "select * from car order by price ;";
+
 
     protected Connection getConnection() {
         Connection connection = null;
@@ -161,6 +163,30 @@ public class CarDAO implements ICarDAO {
         }
         catch (SQLException e) {
             e.printStackTrace();
+        }
+        return cars;
+    }
+
+    public List<Car> sortPriceLowHigh() {
+        List<Car> cars = new ArrayList<>();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SORT_PRICE_LOW_HIGH);) {
+            System.out.println(preparedStatement);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String vehicle = rs.getString("vehicle");
+                String bodyStyle = rs.getString("bodyStyle");
+                String engine = rs.getString("engine");
+                String price = rs.getString("price");
+                String maxPower = rs.getString("maxPower");
+                String image =  rs.getString("image");
+                cars.add(new Car(id, name, vehicle, bodyStyle,engine,maxPower,price,image));
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
         }
         return cars;
     }

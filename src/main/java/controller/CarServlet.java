@@ -43,6 +43,9 @@ public class CarServlet extends HttpServlet {
                 case "search":
                     searchCar(request,response);
                     break;
+                case "priceLowHigh":
+                    priceLowHigh(request,response);
+                    break;
             }
         } catch (SQLException ex) {
             throw new ServletException(ex);
@@ -74,6 +77,9 @@ public class CarServlet extends HttpServlet {
                     break;
                 case "search":
                     searchCar(request,response);
+                    break;
+                case "priceLowHigh":
+                    priceLowHigh(request,response);
                     break;
                 default:
                     listCar(request, response);
@@ -178,4 +184,11 @@ public class CarServlet extends HttpServlet {
         requestDispatcher.forward(request, response);
     }
 
+    private void priceLowHigh(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
+        List<Car> listCar = carDAO.sortPriceLowHigh();
+        request.setAttribute("priceLowHigh", listCar);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("priceLowHigh.jsp");
+        dispatcher.forward(request, response);
+    }
 }

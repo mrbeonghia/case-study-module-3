@@ -17,7 +17,7 @@
 </head>
 <body>
 <p>
-    <a href="/cars">Quay lại</a>
+    <a href="/cars?action=cars">Quay lại</a>
 </p>
 <p>
     <c:if test='${requestScope["message"] != null}'>
@@ -29,7 +29,7 @@
         <table border="1" cellpadding="5">
             <caption>
                 <h2>
-                    Sủa thông tin xe
+                    Sửa thông tin xe
                 </h2>
             </caption>
             <c:if test="${car != null}">

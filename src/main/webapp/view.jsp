@@ -13,7 +13,7 @@
 <body>
 <h1 align="center">Thông tin xe</h1>
 <p>
-    <a href="/cars">Quay lại</a>
+    <a href="/cars?action=cars">Quay lại</a>
 </p>
 
 <div align="center">
